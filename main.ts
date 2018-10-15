@@ -1,6 +1,8 @@
-import { app, BrowserWindow, screen } from 'electron';
+import {app, BrowserWindow, screen} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import {IpcMainManagement} from './electron_main/ipcMainManagement';
+import {AppAutoUpdate} from './electron_main/appAutoUpdate';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -23,7 +25,8 @@ function createWindow() {
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
-    win.loadURL('http://localhost:4200');
+    win.webContents.openDevTools();
+
   } else {
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
@@ -31,8 +34,7 @@ function createWindow() {
       slashes: true
     }));
   }
-
-  win.webContents.openDevTools();
+  win.loadURL('http://localhost:4200');
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -49,7 +51,12 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', () => {
+    createWindow();
+    const ipcManagement = new IpcMainManagement();
+    const appAutoUpdate = new AppAutoUpdate();
+
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

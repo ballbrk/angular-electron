@@ -1,24 +1,34 @@
 {
-  "productName": "angular-electron",
+  "productName": "managementStore",
+  "generateUpdatesFilesForAllChannels": true,
+  "appId": "com.glyphstock.store",
+  "copyright": "Copyright © 2018 Glyphstock",
+  "asar": true,
   "directories": {
     "output": "release/"
   },
-    "files": [
-        "**/*",
-        "!*.ts",
-        "!*.code-workspace",
-        "!LICENSE.md",
-        "!package.json",
-        "!package-lock.json",
-        "!src/",
-        "!e2e/",
-        "!hooks/",
-        "!.angular-cli.json",
-        "!_config.yml",
-        "!karma.conf.js",
-        "!tsconfig.json",
-        "!tslint.json"
-    ],
+  "files": [
+    "**/*",
+    "!*.ts",
+    "!*.code-workspace",
+    "!LICENSE.md",
+    "!package.json",
+    "!package-lock.json",
+    "!src/",
+    "!e2e/",
+    "!hooks/",
+    "!.angular-cli.json",
+    "!_config.yml",
+    "!karma.conf.js",
+    "!tsconfig.json",
+    "!tslint.json"
+  ],
+  "publish": [
+    {
+      "provider": "generic",
+      "url": "https://demo.glyphstock.com"
+    }
+  ],
   "win": {
     "icon": "dist",
     "target": [
@@ -26,12 +36,14 @@
     ]
   },
   "mac": {
+    "identity": "Glifup S.L. (Y4PSWXH36S)",
     "icon": "dist",
     "target": [
       "dmg"
     ]
   },
   "linux": {
+    "category": "System",
     "icon": "dist",
     "target": [
       "AppImage"
